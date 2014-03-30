@@ -1,5 +1,5 @@
-/*
- * Copyright (c) <2014> <Tobias Weitz>
+
+   Copyright (c) <2014> <Tobias Weitz>
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -18,42 +18,3 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
- */
-package OOS_Praktikum_1_Java;
-
-public class Point	{
-	private int x;
-	private int y;
-	
-	public Point()	{}
-	public Point(Point p)	{
-		setLocation(p);
-	}
-	public Point(int x, int y)	{
-		setLocation(x, y);
-	}
-	
-	public Point getLocation()	{
-		return new Point(this);
-	}
-	public void setLocation(Point p)	{
-		setLocation(p.x, p.y);
-	}
-	public void setLocation(int x, int y)	{
-		this.x=x;
-		this.y=y;
-	}
-	public void move(int dx, int dy)	{
-		x+=dx;
-		y+=dy;
-	}
-	
-	public boolean equals(Point p)	{
-		if(p.x == x && p.y == y)	return true;
-		else return false;
-	}
-	public String toString()	{
-		return "position: X="+x+", Y="+y;
-	}
-	
-}
