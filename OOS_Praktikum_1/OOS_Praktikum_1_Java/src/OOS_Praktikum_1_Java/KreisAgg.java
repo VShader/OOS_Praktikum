@@ -34,6 +34,10 @@ public class KreisAgg extends Shape{
 		super(x, y);
 		setRadius(r);
 	}
+	public KreisAgg(Point p, int r)	{
+		super(p);
+		setRadius(r);
+	}
 	
 	public void setRadius(int r)	{
 		radius=r;
@@ -43,9 +47,8 @@ public class KreisAgg extends Shape{
 	}
 	
 	public boolean equals(KreisAgg comp)	{
-		if(super.equals(comp) 
-				&& comp.radius == radius)	return true;
-		else return false;
+		return super.equals(comp) 
+				&& comp.radius == radius;
 	}
 	public Shape clone()	{
 		return new KreisAgg(this);

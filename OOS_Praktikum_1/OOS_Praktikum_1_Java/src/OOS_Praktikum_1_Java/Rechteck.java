@@ -49,11 +49,9 @@ public class Rechteck extends Shape{
 	}
 	
 	public boolean equals(Rechteck comp)	{
-		if(super.equals(comp)
+		return super.equals(comp)
 				&& comp.length == length
-				&& comp.width == width)
-			return true;
-		else return false;
+				&& comp.width == width;
 	}
 	public Shape clone()	{
 		return new Rechteck(this);

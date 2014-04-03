@@ -19,3 +19,50 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
  */
+#ifndef SHAPE_HPP
+#define SHAPE_HPP
+
+#include <string>
+#define _USE_MATH_DEFINES
+#include <math.h>
+
+#include "Point.hpp"
+
+class Shape {
+protected:
+    Point centralPosition;
+
+public:
+    Shape()	{}
+    Shape(const Point &p) : centralPosition(p)	{}
+    Shape(int x, int y) : centralPosition(x, y)	{}
+
+
+    void setLocation(int x, int y)	{
+        centralPosition.setLocation(x, y);
+    }
+
+    // !!! WARNING !!! not a good idea!
+    // Use copy constructor or assignment operator!
+    Point* getLocation()	{
+            return new Point(centralPosition);
+    }
+
+    virtual double flaechenInhalt() = 0;
+
+
+    virtual bool equals(const Shape &comp)	{
+//        return centralPosition.equals(comp.centralPosition);
+        return comp.centralPosition.equals(centralPosition);
+    }
+
+    // !!! WARNING !!! not a good idea!
+    // Use copy constructor or assignment operator!
+    virtual Shape* clone() = 0;
+
+    virtual std::string toString()	{
+        return centralPosition.toString();
+    }
+};
+
+#endif //SHAPE_HPP

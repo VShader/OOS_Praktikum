@@ -19,3 +19,44 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
  */
+#ifndef KREISAGG_HPP
+#define KREISAGG_HPP
+
+#include "Shape.hpp"
+
+class KreisAgg : public Shape{
+private:
+    int radius;
+
+public:
+    KreisAgg()	{}
+    KreisAgg(int x, int y, int r) : Shape(x, y), radius(r)	{}
+    KreisAgg(const Point &p, int r) : Shape(p), radius(r)	{}
+
+
+    void setRadius(int r)	{
+        radius=r;
+    }
+
+    double flaechenInhalt() {
+        return M_PI*radius*radius;
+    }
+
+
+    bool equals(const KreisAgg &comp)	{
+        return Shape::equals(comp)
+                && comp.radius == radius;
+    }
+
+    // !!! WARNING !!! not a good idea!
+    // Use copy constructor or assignment operator!
+    Shape* clone()	{
+        return new KreisAgg(*this);
+    }
+
+    std::string toString()	{
+        return Shape::toString()+" radius: "+std::to_string(radius);
+    }
+};
+
+#endif // KREISAGG_HPP

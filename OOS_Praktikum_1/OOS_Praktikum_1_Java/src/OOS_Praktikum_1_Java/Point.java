@@ -49,8 +49,7 @@ public class Point	{
 	}
 	
 	public boolean equals(Point p)	{
-		if(p.x == x && p.y == y)	return true;
-		else return false;
+		return p.x == x && p.y == y;
 	}
 	public String toString()	{
 		return "position: X="+x+", Y="+y;

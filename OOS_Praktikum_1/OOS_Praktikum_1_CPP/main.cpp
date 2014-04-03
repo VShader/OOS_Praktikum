@@ -20,10 +20,21 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
  */
 #include <iostream>
-#include "Shapes.hpp"
+
+#include "Point.hpp"
+#include "KreisVererb.hpp"
+#include "KreisAgg.hpp"
+#include "Rechteck.hpp"
+
 using namespace std;
 
+
 void pascalsTriangle(int deph);
+
+class safeP {
+public:
+    int* p;
+};
 
 int main()
 {
@@ -36,9 +47,6 @@ int main()
     formen[2] = new KreisAgg(0, 1, 5);
     formen[3] = new Rechteck(10, 4, 4, 2);
 
-    Shape* test = formen[0]->clone();
-    Point* ente = test->getLocation();
-    delete test;
 
     for(int i=0; i<4; ++i)	{
                 cout << formen[i]->flaechenInhalt() << endl;
@@ -49,6 +57,7 @@ int main()
 
 	return 0;
 }
+
 
 void pascalsTriangle(int deph)	{
         int** triangle = new int* [deph];

@@ -19,3 +19,53 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
  */
+#ifndef RECHTECK_HPP
+#define RECHTECK_HPP
+
+#include "Shape.hpp"
+
+class Rechteck : public Shape{
+private:
+    int length;
+    int width;
+
+public:
+    Rechteck() {}
+    Rechteck(int x, int y, int lenght, int width) : Shape(x, y),
+        length(lenght), width(width) {}
+    Rechteck(const Point &p, int lenght, int width) : Shape(p),
+        length(lenght), width(width) {}
+
+
+    void setLenght(int l)	{
+        length=l;
+    }
+    void setWidth(int w)	{
+        width=w;
+    }
+
+    double flaechenInhalt()	{
+        return length*width;
+    }
+
+
+    bool equals(const Rechteck &comp)	{
+        return Shape::equals(comp)
+                && comp.length == length
+                && comp.width == width;
+    }
+
+    // !!! WARNING !!! not a good idea!
+    // Use copy constructor or assignment operator!
+    Shape* clone()	{
+        return new Rechteck(*this);
+    }
+
+    std::string toString() {
+        return Shape::toString()+" length: "+std::to_string(length)
+                +" width: "+std::to_string(width);
+    }
+
+};
+
+#endif // RECHTECK_HPP

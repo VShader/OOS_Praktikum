@@ -1,5 +1,6 @@
-set(Shapes_hpp "Shapes.hpp")
-set(Shapes_cpp "Point.cpp" "KreisVererb.cpp" "KreisAgg.cpp" "Rechteck.cpp")
+set(Shapes_hpp "Shape.hpp"
+		"Point.hpp" "KreisVererb.hpp" "KreisAgg.hpp" "Rechteck.hpp")
+#set(Shapes_cpp "Point.cpp" "KreisVererb.cpp" "KreisAgg.cpp" "Rechteck.cpp")
 
 foreach(var ${Shapes_hpp})
 set(hpp ${hpp} ./Shapes/${var})

@@ -19,35 +19,49 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
  */
-package OOS_Praktikum_1_Java;
+#ifndef POINT_HPP
+#define POINT_HPP
 
-public abstract class Shape {
-	protected Point centralPosition;
-	
-	public Shape()	{
-		centralPosition = new Point();
-	}
-	public Shape(Point p)	{
-		centralPosition = new Point(p);
-	}
-	public Shape(int x, int y)	{
-		this();
-		setLocation(x, y);
-	}
-	
-	public void setLocation(int x, int y)	{
-		centralPosition.setLocation(x, y);
-	}
-	public Point getLocation()	{
-		return new Point(centralPosition);
-	}
-	public abstract double flaechenInhalt();
-	
-	boolean equals(Shape comp)	{
-		return centralPosition.equals(comp.centralPosition); 
-	}
-	public abstract Shape clone();
-	public String toString()	{
-		return centralPosition.toString();
-	}
-}
+class Point	{
+private:
+    int x;
+    int y;
+
+public:
+    Point()	{}
+    Point(int x, int y) : x(x), y(y) {}
+
+
+    // !!! WARNING !!! not a good idea!
+    // Use copy constructor or assignment operator!
+    Point* getLocation()	{
+        return new Point(*this);
+    }
+
+    void setLocation(const Point &p)	{
+        setLocation(p.x, p.y);
+    }
+    void setLocation(int x, int y)	{
+        this->x=x;
+        this->y=y;
+    }
+
+    void move(int dx, int dy)	{
+        x+=dx;
+        y+=dy;
+    }
+
+
+    virtual bool equals(const Point &p) const	{
+        return p.x == x && p.y == y;
+    }
+
+    virtual std::string toString()	{
+        return "position: X="
+                +std::to_string(x)
+                +", Y="+std::to_string(y);
+    }
+
+};
+
+#endif // POINT_HPP
