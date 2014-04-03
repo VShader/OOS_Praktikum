@@ -22,6 +22,9 @@ THE SOFTWARE.
 #ifndef KREISAGG_HPP
 #define KREISAGG_HPP
 
+#define _USE_MATH_DEFINES
+#include <math.h>
+
 #include "Shape.hpp"
 
 class KreisAgg : public Shape{

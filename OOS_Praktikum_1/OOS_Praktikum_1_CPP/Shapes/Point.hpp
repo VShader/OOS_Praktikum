@@ -22,6 +22,8 @@ THE SOFTWARE.
 #ifndef POINT_HPP
 #define POINT_HPP
 
+#include <string>
+
 class Point	{
 private:
     int x;

@@ -22,6 +22,9 @@ THE SOFTWARE.
 #ifndef KREISVERERB_HPP
 #define KREISVERERB_HPP
 
+#define _USE_MATH_DEFINES
+#include <math.h>
+
 #include "Point.hpp"
 
 class KreisVererb : public Point{
