@@ -1,5 +1,7 @@
+import java.io.Serializable;
 
-public class Benutzer {
+
+public class Benutzer implements Serializable{
 
 	public Benutzer()	{
 		userID="NEW User";
