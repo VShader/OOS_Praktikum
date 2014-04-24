@@ -1,3 +1,25 @@
+/*
+ * Copyright (c) <2014> <Tobias Weitz>
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+ */
+
 import java.util.HashMap;
 import java.io.*;
 
@@ -9,9 +31,9 @@ public class BenutzerVerwaltungAdmin implements BenutzerVerwaltung{
 	}
 	
 	
-	public void benutzerEintragen(Benutzer ben) throws BenutzerException {
+	public void benutzerEintragen(Benutzer ben) throws BenutzerSchonVorhandenException {
 		if(userMap.put(ben.getID(), new Benutzer(ben)) != null)	{
-			throw new BenutzerException("Error! User "+ben.getID()+" is always in HashMap!");
+			throw new BenutzerSchonVorhandenException("Error! User "+ben.getID()+" is always in HashMap!");
 		}
 		else	{
 			saveDB();
@@ -25,15 +47,16 @@ public class BenutzerVerwaltungAdmin implements BenutzerVerwaltung{
 			return false;
 		}
 	}
-	public void benutzerLoeschen(Benutzer ben) throws BenutzerException	{
+	public void benutzerLoeschen(Benutzer ben) throws BenutzerNichtVorhandenException	{
 		if(userMap.remove(ben.getID())== null)	{
-			throw new BenutzerException("Error! No User: "+ben.getID()+" found!");
+			throw new BenutzerNichtVorhandenException("Error! No User: "+ben.getID()+" found!");
 		}
 		else	{
 			saveDB();
 		}
 	}
 	public void dbInitialisieren()	{
+		userMap.clear();
 		saveDB();
 	}
 
@@ -42,8 +65,7 @@ public class BenutzerVerwaltungAdmin implements BenutzerVerwaltung{
 	
 	private void saveDB()	{
 		try	{
-			FileOutputStream fs = new FileOutputStream("db.s");
-			ObjectOutputStream os = new ObjectOutputStream(fs);
+			ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream("db.s"));
 			os.writeObject(userMap);
 			os.close();
 		}catch(IOException exception)	{
@@ -52,8 +74,7 @@ public class BenutzerVerwaltungAdmin implements BenutzerVerwaltung{
 	}
 	private void readDB()	{
 		try	{
-			FileInputStream is = new FileInputStream("db.s");
-			ObjectInputStream os = new ObjectInputStream(is);
+			ObjectInputStream os = new ObjectInputStream(new FileInputStream("db.s"));
 			userMap = (HashMap<String, Benutzer>)os.readObject();
 			os.close();
 		} catch(IOException exception)	{
@@ -75,7 +96,7 @@ public class BenutzerVerwaltungAdmin implements BenutzerVerwaltung{
 			admin.benutzerLoeschen(new Benutzer("Ente", new char[]{'a','s','d'}));
 			System.out.println(admin.benutzerOK(new Benutzer("Ente", new char[]{'a','s','d'})));
 			
-		} catch(BenutzerException exception)	{
+		} catch(BenutzerNichtVorhandenException exception)	{
 			exception.printStackTrace();
 		}
 		
