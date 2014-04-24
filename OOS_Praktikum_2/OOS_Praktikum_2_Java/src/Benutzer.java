@@ -54,12 +54,6 @@ public class Benutzer implements Serializable{
 	
 	
 	/*
-	 * @return String user-ID
-	 */
-	public String getID()	{
-		return userID;
-	}
-	/*
 	 * @param Benutzer user 
 	 * @return boolean true if equals, else false
 	 */
@@ -68,11 +62,11 @@ public class Benutzer implements Serializable{
 				String.copyValueOf(passWord).equals(String.copyValueOf(ben.passWord));
 	}
 	/*
-	 * @return String user-ID and password
+	 * @return String user-ID
 	 * @see java.lang.Object#toString()
 	 */
 	public String toString()	{
-		return userID.toString()+String.copyValueOf(passWord).toString();
+		return userID;
 	}
 	
 	

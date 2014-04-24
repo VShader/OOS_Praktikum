@@ -33,14 +33,16 @@ public class BenutzerVerwaltungAdmin implements BenutzerVerwaltung{
 		userMap = new HashMap<String, Benutzer>();
 	}
 	
+	
+	
 	/*
 	 * @param Benutzer	user
 	 * @throws BenutzerSchonVorhandenException	if user is always in database
 	 * @see BenutzerVerwaltung#benutzerEintragen(Benutzer)
 	 */
 	public void benutzerEintragen(Benutzer ben) throws BenutzerSchonVorhandenException {
-		if(userMap.put(ben.getID(), new Benutzer(ben)) != null)	{
-			throw new BenutzerSchonVorhandenException("Error! User "+ben.getID()+" is always in HashMap!");
+		if(userMap.put(ben.toString(), new Benutzer(ben)) != null)	{
+			throw new BenutzerSchonVorhandenException("Error! User "+ben.toString()+" is always in HashMap!");
 		}
 		else	{
 			saveDB();
@@ -53,7 +55,7 @@ public class BenutzerVerwaltungAdmin implements BenutzerVerwaltung{
 	 */
 	public boolean benutzerOK(Benutzer ben) {
 		try	{
-			return userMap.get(ben.getID()).equals(ben);
+			return userMap.get(ben.toString()).equals(ben);
 		}catch(NullPointerException exception)
 		{
 			return false;
@@ -64,8 +66,8 @@ public class BenutzerVerwaltungAdmin implements BenutzerVerwaltung{
 	 * @throws BenutzerNichtVorhandenException	if user is not in database
 	 */
 	public void benutzerLoeschen(Benutzer ben) throws BenutzerNichtVorhandenException	{
-		if(userMap.remove(ben.getID())== null)	{
-			throw new BenutzerNichtVorhandenException("Error! No User: "+ben.getID()+" found!");
+		if(userMap.remove(ben.toString())== null)	{
+			throw new BenutzerNichtVorhandenException("Error! No User: "+ben.toString()+" found!");
 		}
 		else	{
 			saveDB();
