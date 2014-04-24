@@ -23,40 +23,59 @@ THE SOFTWARE.
 
 import java.io.Serializable;
 
-
+/*
+ * @author Tobias Weitz
+ * @version 1.0
+ * @serial user-ID, password
+ */
 public class Benutzer implements Serializable{
 
 	public Benutzer()	{
 		userID="NEW User";
 		passWord = new char[1];
 	}
+	/*
+	 * @param String user-ID
+	 * @param char[] password
+	 * @ 
+	 */
 	public Benutzer(String userID, char[] passWord)	{
 		this.userID=userID;
 		this.passWord = passWord.clone();
 	}
+	/*
+	 * @param Benutzer user
+	 */
 	public Benutzer(Benutzer ben)	{
 		userID=ben.userID;
 		passWord=ben.passWord;
 	}
 	
+	
+	
+	/*
+	 * @return String user-ID
+	 */
 	public String getID()	{
 		return userID;
 	}
-	
+	/*
+	 * @param Benutzer user 
+	 * @return boolean true if equals, else false
+	 */
 	public boolean equals(Benutzer ben)	{
 		return userID.equals(ben.userID) &&
 				String.copyValueOf(passWord).equals(String.copyValueOf(ben.passWord));
 	}
+	/*
+	 * @return String user-ID and password
+	 * @see java.lang.Object#toString()
+	 */
 	public String toString()	{
 		return userID.toString()+String.copyValueOf(passWord).toString();
 	}
 	
-//	public void benutzerEintragen(Benutzer ben) {
-//		userID=ben.userID;
-//		passWord=ben.passWord;
-//	}
-//	public boolean benutzerOK(Benutzer ben) {return equals(ben);}
-//	
+	
 	
 	private String userID;
 	private char[] passWord;

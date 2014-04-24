@@ -23,14 +23,21 @@ THE SOFTWARE.
 import java.util.HashMap;
 import java.io.*;
 
-
+/*
+ * @author Tobias Weitz
+ * @version 1.0
+ */
 public class BenutzerVerwaltungAdmin implements BenutzerVerwaltung{
 
 	public BenutzerVerwaltungAdmin()	{
 		userMap = new HashMap<String, Benutzer>();
 	}
 	
-	
+	/*
+	 * @param Benutzer	user
+	 * @throws BenutzerSchonVorhandenException	if user is always in database
+	 * @see BenutzerVerwaltung#benutzerEintragen(Benutzer)
+	 */
 	public void benutzerEintragen(Benutzer ben) throws BenutzerSchonVorhandenException {
 		if(userMap.put(ben.getID(), new Benutzer(ben)) != null)	{
 			throw new BenutzerSchonVorhandenException("Error! User "+ben.getID()+" is always in HashMap!");
@@ -39,6 +46,11 @@ public class BenutzerVerwaltungAdmin implements BenutzerVerwaltung{
 			saveDB();
 		}
 	}
+	/*
+	 * @param Benutzer	user
+	 * @return boolean	true if user is in database, else false
+	 * @see BenutzerVerwaltung#benutzerOK(Benutzer)
+	 */
 	public boolean benutzerOK(Benutzer ben) {
 		try	{
 			return userMap.get(ben.getID()).equals(ben);
@@ -47,6 +59,10 @@ public class BenutzerVerwaltungAdmin implements BenutzerVerwaltung{
 			return false;
 		}
 	}
+	/*
+	 * @param Benutzer	user
+	 * @throws BenutzerNichtVorhandenException	if user is not in database
+	 */
 	public void benutzerLoeschen(Benutzer ben) throws BenutzerNichtVorhandenException	{
 		if(userMap.remove(ben.getID())== null)	{
 			throw new BenutzerNichtVorhandenException("Error! No User: "+ben.getID()+" found!");
@@ -61,7 +77,10 @@ public class BenutzerVerwaltungAdmin implements BenutzerVerwaltung{
 	}
 
 	
+	
 	private HashMap<String, Benutzer> userMap;
+	
+	
 	
 	private void saveDB()	{
 		try	{

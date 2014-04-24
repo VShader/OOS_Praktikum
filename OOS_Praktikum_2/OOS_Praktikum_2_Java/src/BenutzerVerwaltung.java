@@ -20,12 +20,28 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
  */
 
-
+/*
+ * @author Tobias Weitz
+ * @version 1.0
+ * @throws BenutzerSchonVorhandenException
+ */
 interface BenutzerVerwaltung {
+	/*
+	 * @param Benutzer user
+	 * @throws BenutzerSchonVorhandenException	if user is always in database
+	 */
 	public void benutzerEintragen(Benutzer ben) throws BenutzerSchonVorhandenException;
+	/*
+	 * @param Benutzer user
+	 * @return boolean	true if user is in database, else false
+	 */
 	public boolean benutzerOK(Benutzer ben);
 }
 
+/*
+ * @author Tobias Weitz
+ * @version 1.0
+ */
 class BenutzerSchonVorhandenException extends Exception
 {
 	public BenutzerSchonVorhandenException(String error)	{
@@ -33,6 +49,10 @@ class BenutzerSchonVorhandenException extends Exception
 	}
 }
 
+/*
+ * @author Tobias Weitz
+ * @version 1.0
+ */
 class BenutzerNichtVorhandenException extends Exception
 {
 	public BenutzerNichtVorhandenException(String error)	{
