@@ -19,12 +19,41 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
  */
+#include <QLabel>
+#include <QPushButton>
+#include <QVBoxLayout>
+#include <iostream>
+#include <QApplication>
 
-#include "benutzer.hpp"
+#include "anwendungsFrame.hpp"
 
-int main()
+AnwendungsFrame::AnwendungsFrame() :
+    label(new QLabel()), button(new QPushButton()),
+    verticalLayout(new QVBoxLayout())
 {
-    char *pw = new char[2]{'E','a'};
-    Benutzer ente("Hallo", pw);
-    return 0;
+    label->setText(tr("Sie können jetzt loslegen!"));
+    button->setText(tr("Abbrechen?"));
+
+    verticalLayout->addWidget(label);
+    verticalLayout->addWidget(button);
+    this->setLayout(verticalLayout);
+
+    connect(button, &QPushButton::clicked, this, &AnwendungsFrame::quitButton_Clicked);
+
+    setWindowTitle(tr("AnwendungsFrame"));
+}
+
+AnwendungsFrame::~AnwendungsFrame()
+{
+    delete label;
+    delete button;
+    delete verticalLayout;
+}
+
+
+
+void AnwendungsFrame::quitButton_Clicked()  {
+    std::cout << "quit" << std::endl;
+    qApp->quit();
+
 }

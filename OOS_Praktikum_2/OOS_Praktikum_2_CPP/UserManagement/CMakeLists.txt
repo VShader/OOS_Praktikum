@@ -1,7 +1,7 @@
 set(dir "UserManagement")
-include_directories(${dir})
 set(${dir}_hpp benutzer.hpp benutzerVerwaltung.hpp benutzerVerwaltungAdmin.hpp)
 
-foreach(i ${${dir}_hpp})
-	set(hpp ${hpp} ${dir}/${i})
-endforeach(i)
+foreach(var ${${dir}_hpp})
+	set(sources ${sources} ${dir}/${var})
+endforeach(var)
+include_directories(${dir})

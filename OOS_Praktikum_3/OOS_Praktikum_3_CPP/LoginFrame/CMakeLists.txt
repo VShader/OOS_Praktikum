@@ -1,0 +1,12 @@
+set(dir LoginFrame)
+set(${dir}_hpp loginFrame.hpp)
+set(${dir}_cpp loginFrame.cpp)
+set(${dir}_ui loginFrame.ui)
+
+foreach(var ${${dir}_hpp} ${${dir}_cpp} ${${dir}_ui})
+   set(sources ${sources} ${dir}/${var})
+endforeach(var)
+foreach(var ${${dir}_ui})
+    set(ui ${ui} ${dir}/${var})
+endforeach(var)
+include_directories(${dir})

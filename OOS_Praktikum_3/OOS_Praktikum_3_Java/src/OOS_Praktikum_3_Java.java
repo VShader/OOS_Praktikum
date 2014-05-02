@@ -20,11 +20,12 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
  */
 
-#include "benutzer.hpp"
+public class OOS_Praktikum_3_Java {
 
-int main()
-{
-    char *pw = new char[2]{'E','a'};
-    Benutzer ente("Hallo", pw);
-    return 0;
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+//		AnwendungsFrame frame = new AnwendungsFrame();
+		LoginFrame log = new LoginFrame();
+	}
+
 }

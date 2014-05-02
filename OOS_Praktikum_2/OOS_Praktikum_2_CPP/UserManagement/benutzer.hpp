@@ -23,39 +23,62 @@ THE SOFTWARE.
 #define BENUTZER_HPP
 
 #include <string>
-
+#include <string.h>
+//! A user class.
+/*!
+ * \brief Contains userID and password of a user.
+ * \author Tobias Weitz
+ */
 class Benutzer {
 
 public:
-    Benutzer()	{
-        userID="NEW User";
-        passWord = new char[1];
-    }
-    Benutzer(std::string userID, char passWord[])	{
-        this.userID=userID;
-        this.passWord = passWord.clone();
-    }
-    Benutzer(Benutzer ben)	{
-        userID=ben.userID;
-        passWord=ben.passWord;
+    //! Default constructor.
+    /*!
+     * \brief Creates an default user with name "NEW User".
+     */
+    Benutzer() : userID("NEW User"), passWord(new char[1]{' '})   {}
+    //! Assignment constructor.
+    /*!
+     * \brief Creates an new user.
+     * \param userID name for the user.
+     * \param passWord password for user as C-String.
+     */
+    Benutzer(const std::string &userID, char *passWord)
+        : userID(userID), passWord(passWord) {}
+    //! Destructor
+    /*!
+     * \brief ~Benutzer deletes passWord;
+     */
+    virtual ~Benutzer()
+    {
+        delete passWord;
     }
 
-    std::string getID()	{
-        return userID;
-    }
 
-    bool equals(Benutzer ben)	{
-        return userID.equals(ben.userID) &&
-                String.copyValueOf(passWord).equals(String.copyValueOf(ben.passWord));
+
+    //! Compare this user with its argument.
+    /*!
+     * \brief Compare if userID and passWord is the
+     *        same as in ben.
+     * \param ben is a user.
+     * \return true if they're equal, else false.
+     */
+    bool equals(const Benutzer &ben) const	{
+        return userID == ben.userID &&
+                strcmp(passWord, ben.passWord);
     }
+    //! Return the userID as a string.
+    /*!
+     * \return userID
+     */
     std::string toString()	{
-        return userID.toString()+String.copyValueOf(passWord).toString();
+        return userID;
     }
 
 
 private:
-    string userID;
-    char passWord[];
+    std::string userID;
+    char *passWord;
 };
 
 

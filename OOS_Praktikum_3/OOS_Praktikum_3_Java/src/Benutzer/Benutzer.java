@@ -20,11 +20,58 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
  */
 
-#include "benutzer.hpp"
+package Benutzer;
 
-int main()
-{
-    char *pw = new char[2]{'E','a'};
-    Benutzer ente("Hallo", pw);
-    return 0;
+import java.io.Serializable;
+
+/*
+ * @author Tobias Weitz
+ * @version 1.0
+ * @serial user-ID, password
+ */
+public class Benutzer implements Serializable{
+
+	public Benutzer()	{
+		userID="NEW User";
+		passWord = new char[1];
+	}
+	/*
+	 * @param String user-ID
+	 * @param char[] password
+	 * @ 
+	 */
+	public Benutzer(String userID, char[] passWord)	{
+		this.userID=userID;
+		this.passWord = passWord.clone();
+	}
+	/*
+	 * @param Benutzer user
+	 */
+	public Benutzer(Benutzer ben)	{
+		userID=ben.userID;
+		passWord=ben.passWord;
+	}
+	
+	
+	
+	/*
+	 * @param Benutzer user 
+	 * @return boolean true if equals, else false
+	 */
+	public boolean equals(Benutzer ben)	{
+		return userID.equals(ben.userID) &&
+				String.copyValueOf(passWord).equals(String.copyValueOf(ben.passWord));
+	}
+	/*
+	 * @return String user-ID
+	 * @see java.lang.Object#toString()
+	 */
+	public String toString()	{
+		return userID;
+	}
+	
+	
+	
+	private String userID;
+	private char[] passWord;
 }

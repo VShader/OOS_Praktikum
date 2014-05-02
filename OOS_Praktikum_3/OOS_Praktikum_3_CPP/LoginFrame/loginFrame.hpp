@@ -19,12 +19,31 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
  */
+#ifndef LOGINFRAME_HPP
+#define LOGINFRAME_HPP
 
-#include "benutzer.hpp"
+#include <QWidget>
 
-int main()
-{
-    char *pw = new char[2]{'E','a'};
-    Benutzer ente("Hallo", pw);
-    return 0;
+
+namespace Ui {
+    class LoginFrame;
 }
+
+class LoginFrame : public QWidget
+{
+    Q_OBJECT
+public:
+    LoginFrame();
+    ~LoginFrame();
+
+private slots:
+    void run();
+
+private:
+    Ui::LoginFrame *ui;
+    bool lokal;
+    bool neuAnmeldung;
+    QString address;
+};
+
+#endif // LOGINFRAME_HPP

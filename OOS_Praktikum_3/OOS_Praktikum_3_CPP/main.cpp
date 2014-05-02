@@ -19,12 +19,19 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
  */
+#include <QApplication>
+#include "anwendungsFrame.hpp"
+#include "loginFrame.hpp"
 
-#include "benutzer.hpp"
-
-int main()
+int main(int argc, char *argv[])
 {
-    char *pw = new char[2]{'E','a'};
-    Benutzer ente("Hallo", pw);
-    return 0;
+    QApplication app(argc, argv);
+
+//    AnwendungsFrame anFrame;
+//    anFrame.show();
+
+    LoginFrame logFrame;
+    logFrame.show();
+
+    return app.exec();
 }

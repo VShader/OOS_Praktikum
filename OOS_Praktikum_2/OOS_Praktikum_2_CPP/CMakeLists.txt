@@ -5,5 +5,5 @@ message(STATUS ${CMAKE_BUILD_TYPE})
 
 include(UserManagement/CMakeLists.txt)
 
-set(cpp ${cpp} "main.cpp")
-add_executable(${PROJECT_NAME} ${hpp} ${cpp})
+set(sources ${sources} "main.cpp")
+add_executable(${PROJECT_NAME} ${sources})

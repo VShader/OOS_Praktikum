@@ -19,12 +19,44 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
  */
+#include <QDebug>
 
-#include "benutzer.hpp"
+#include "loginFrame.hpp"
+#include "ui_loginFrame.h"
 
-int main()
+
+LoginFrame::LoginFrame() :
+    ui(new Ui::LoginFrame()),
+    lokal(true), neuAnmeldung(false)
 {
-    char *pw = new char[2]{'E','a'};
-    Benutzer ente("Hallo", pw);
-    return 0;
+    ui->setupUi(this);
+
+
+    connect(ui->checkBox_Remote, &QCheckBox::toggled,
+            [=](const bool status){
+        lokal = !status;
+        qDebug() << "lokal:" << lokal;
+    });
+    connect(ui->checkBox_Remote, &QCheckBox::toggled, ui->lineEdit_IP, &QLineEdit::setEnabled);
+
+    connect(ui->checkBox_NewLogin, &QCheckBox::toggled,
+            [=](const bool status)  {
+        neuAnmeldung = status;
+        qDebug() << "neuAnmeldung:" << neuAnmeldung;
+    });
+
+    connect(ui->pushButton_Run, &QPushButton::pressed, this, &LoginFrame::run);
+}
+
+LoginFrame::~LoginFrame()
+{
+    delete ui;
+}
+
+
+
+void LoginFrame::run()
+{
+    if(!lokal) address = ui->lineEdit_IP->text();
+    qDebug() << address;
 }
