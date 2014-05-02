@@ -20,6 +20,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
  */
 
+import javax.management.openmbean.KeyAlreadyExistsException;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JFrame;
@@ -30,85 +31,88 @@ import javax.swing.JTextField;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
+import java.util.Arrays;
 
 import Benutzer.*;
 
-public class LoginFrame extends JFrame	{
-	LoginFrame()	{
+public class AnmeldungsFrame extends JFrame	{
+	AnmeldungsFrame()	{
 		setTitle("LoginFrame");
-		setSize(new Dimension(400, 350));
+		setSize(new Dimension(350, 280));
 		
 		// Create Elements
-		JLabel jLabel_Management = new JLabel("Login Benutzerverwaltung");
+		JLabel jLabel_Registration = new JLabel("Anmeldung");
 		JLabel jLabel_UserID = new JLabel("User-ID");
 		jTextField_UserID = new JTextField();
 		JLabel jLabel_Password = new JLabel("Passwort");
 		jPasswordField_Password = new JPasswordField();
-		jCheckBox_Remote = new JCheckBox("remote?");
-		JLabel jLabel_IP = new JLabel("IP:");
-		jTextField_IP = new JTextField();
-		jCheckBox_NewLogin = new JCheckBox("Neu-Anmeldung?");
+		JLabel jLabel_Repeat = new JLabel("Wiederholung");
+		jPasswordField_Repeat = new JPasswordField();
 		jButton_Run = new JButton("Ausführen");
 		
 		// Set Positions
-		jLabel_Management.setBounds(67,10,289,28);
-		jLabel_Management.setFont(new java.awt.Font("Serif",1,20));
-		jLabel_UserID.setBounds(17,60,289,28);
-		jTextField_UserID.setBounds(77,60,189,28);
-		jLabel_Password.setBounds(17,90,289,28);
-		jPasswordField_Password.setBounds(77,90,189,28);
-		jCheckBox_Remote.setBounds(17,150,89,28);
-		jLabel_IP.setBounds(107,150,20,28);
-		jTextField_IP.setBounds(127,150,189,28);
-		jCheckBox_NewLogin.setBounds(87,200,289,28);
-		jButton_Run.setBounds(87,250,100,30);
+		jLabel_Registration.setBounds(67,10,289,28);
+		jLabel_Registration.setFont(new java.awt.Font("Serif",1,20));
+		jLabel_UserID.setBounds(17,60,80,28);
+		jTextField_UserID.setBounds(100,60,189,28);
+		jLabel_Password.setBounds(17,100,80,28);
+		jPasswordField_Password.setBounds(100,100,189,28);
+		jLabel_Repeat.setBounds(17,140,80,28);
+		jPasswordField_Repeat.setBounds(100,140,189,28);
+		jButton_Run.setBounds(87,200,100,30);
+		
 		
 		// Initialize Elements
-		jTextField_IP.setEditable(false);
+		echoChar = jPasswordField_Password.getEchoChar();
+		passwordFont = jPasswordField_Password.getFont();
 		
 		// Add ActionListner
-		jCheckBox_Remote.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				lokal=!jCheckBox_Remote.isSelected();
-				jTextField_IP.setEditable(!lokal);
-				System.out.println(lokal);
-			}
-		});
-		jCheckBox_NewLogin.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				neuAnmeldung=jCheckBox_NewLogin.isSelected();
-				System.out.println(neuAnmeldung);
+		jPasswordField_Password.addKeyListener(new KeyAdapter() {
+			public void keyTyped(KeyEvent arg0) {
+				jPasswordField_Password.setFont(passwordFont);
+				jPasswordField_Password.setEchoChar(echoChar);
 			}
 		});
 		jButton_Run.addActionListener(new ActionListener()	{
 				public void actionPerformed(ActionEvent e)	{
-					if(lokal==false)	{
-						try	{
-							address = InetAddress.getByName(jTextField_IP.getText());
-						} catch(UnknownHostException exception)	{
-							exception.printStackTrace();
-						}
+					char[] tempPW = jPasswordField_Password.getPassword();
+
+					if(tempPW.length == 0)	{
+						jPasswordField_Password.setEchoChar((char)0);
+						jPasswordField_Password.setFont(new java.awt.Font("Serif",1,15));
+						jPasswordField_Password.setText("Geben Sie ein Passwort ein!");
+						return;
 					}
-					Benutzer user = new Benutzer(jTextField_UserID.getText(), 
-							jPasswordField_Password.getPassword());
-					System.out.println(user.toString());
-					dispose();
+					if(Arrays.equals(tempPW,
+							jPasswordField_Repeat.getPassword()))	{
+						Benutzer user = new Benutzer(jTextField_UserID.getText(), 
+								jPasswordField_Password.getPassword());
+						System.out.println(user.toString());
+						dispose();
+					}
+					else	{
+						jPasswordField_Password.setEchoChar((char)0);
+						jPasswordField_Password.setFont(new java.awt.Font("Serif",1,15));
+						jPasswordField_Password.setText("Falsche Wiederholung!");
+						jPasswordField_Repeat.setText(null);
+					}
 				}
 			});
 	
 		// Add Elements
 		setLayout(null);
-		add(jLabel_Management);
+		add(jLabel_Registration);
 		add(jLabel_UserID);
 		add(jTextField_UserID);
 		add(jLabel_Password);
 		add(jPasswordField_Password);
-		add(jCheckBox_Remote);
-		add(jLabel_IP);
-		add(jTextField_IP);
-		add(jCheckBox_NewLogin);
+		add(jPasswordField_Repeat);
+		add(jLabel_Repeat);
 		add(jButton_Run);
 		setVisible(true);
 	}
@@ -116,12 +120,9 @@ public class LoginFrame extends JFrame	{
 	
 	private JTextField jTextField_UserID;
 	private JPasswordField jPasswordField_Password;
-	private JTextField jTextField_IP;
-	private JCheckBox jCheckBox_Remote;
-	private JCheckBox jCheckBox_NewLogin;
+	private JPasswordField jPasswordField_Repeat;
 	private JButton jButton_Run;
-	private boolean lokal = true;
-	private boolean neuAnmeldung = false;
-	private InetAddress address;
+	private char echoChar;
+	private java.awt.Font passwordFont;
 
 }

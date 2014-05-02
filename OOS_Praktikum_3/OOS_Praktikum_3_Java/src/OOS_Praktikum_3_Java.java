@@ -25,7 +25,8 @@ public class OOS_Praktikum_3_Java {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 //		AnwendungsFrame frame = new AnwendungsFrame();
-		LoginFrame log = new LoginFrame();
+//		LoginFrame log = new LoginFrame();
+		AnmeldungsFrame reg = new AnmeldungsFrame();
 	}
 
 }
