@@ -25,8 +25,15 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.*;
 
+/**
+ * @author Tobias Weitz
+ *
+ */
 public class AnwendungsFrame extends JFrame{
 	
+	/**
+	 * 
+	 */
 	public AnwendungsFrame()	{
 		setTitle("AnwendungsFrame");
 		setSize(new Dimension(400, 300));
@@ -51,9 +58,4 @@ public class AnwendungsFrame extends JFrame{
 	
 	private JLabel jLabel_go;
 	private JButton jButton_quit;
-	
-	
-	public static void main(String args[])	{
-		AnwendungsFrame frame = new AnwendungsFrame();
-	}
 }

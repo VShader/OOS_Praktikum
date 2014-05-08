@@ -35,8 +35,15 @@ import java.net.UnknownHostException;
 
 import Benutzer.*;
 
+/**
+ * @author Tobias Weitz
+ *
+ */
 public class LoginFrame extends JFrame	{
-	LoginFrame()	{
+	/**
+	 * 
+	 */
+	public LoginFrame()	{
 		setTitle("LoginFrame");
 		setSize(new Dimension(400, 350));
 		

@@ -40,8 +40,15 @@ import java.util.Arrays;
 
 import Benutzer.*;
 
+/**
+ * @author Tobias Weitz
+ *
+ */
 public class AnmeldungsFrame extends JFrame	{
-	AnmeldungsFrame()	{
+	/**
+	 * 
+	 */
+	public AnmeldungsFrame()	{
 		setTitle("LoginFrame");
 		setSize(new Dimension(350, 280));
 		
