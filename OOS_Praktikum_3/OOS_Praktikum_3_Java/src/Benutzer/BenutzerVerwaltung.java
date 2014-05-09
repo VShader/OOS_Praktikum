@@ -40,25 +40,3 @@ interface BenutzerVerwaltung {
 	 */
 	public boolean benutzerOK(Benutzer ben);
 }
-
-/*
- * @author Tobias Weitz
- * @version 1.0
- */
-class BenutzerSchonVorhandenException extends Exception
-{
-	public BenutzerSchonVorhandenException(String error)	{
-		super(error);
-	}
-}
-
-/*
- * @author Tobias Weitz
- * @version 1.0
- */
-class BenutzerNichtVorhandenException extends Exception
-{
-	public BenutzerNichtVorhandenException(String error)	{
-		super(error);
-	}
-}
