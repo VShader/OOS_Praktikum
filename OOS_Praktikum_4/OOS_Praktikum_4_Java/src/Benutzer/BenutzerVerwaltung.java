@@ -1,7 +1,3 @@
-import Frame.AnmeldungsFrame;
-import Frame.AnwendungsFrame;
-import Frame.LoginFrame;
-
 /*
  * Copyright (c) <2014> <Tobias Weitz>
 
@@ -24,13 +20,23 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
  */
 
-public class OOS_Praktikum_3_Java {
+package Benutzer;
 
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		AnwendungsFrame frame = new AnwendungsFrame();
-		LoginFrame log = new LoginFrame();
-		AnmeldungsFrame reg = new AnmeldungsFrame();
-	}
 
+/*
+ * @author Tobias Weitz
+ * @version 1.0
+ * @throws BenutzerSchonVorhandenException
+ */
+public interface BenutzerVerwaltung {
+	/*
+	 * @param Benutzer user
+	 * @throws BenutzerSchonVorhandenException	if user is always in database
+	 */
+	public void benutzerEintragen(Benutzer ben) throws BenutzerSchonVorhandenException;
+	/*
+	 * @param Benutzer user
+	 * @return boolean	true if user is in database, else false
+	 */
+	public boolean benutzerOK(Benutzer ben);
 }

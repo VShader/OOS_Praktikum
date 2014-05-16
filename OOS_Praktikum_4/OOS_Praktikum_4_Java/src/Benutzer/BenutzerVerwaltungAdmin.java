@@ -35,11 +35,17 @@ public class BenutzerVerwaltungAdmin implements BenutzerVerwaltung{
 	public BenutzerVerwaltungAdmin()	{
 		userMap = new HashMap<String, Benutzer>();
 		fileName = "db.s";
+		
 	}
 	
-	public BenutzerVerwaltungAdmin(String fileName)	{
+	public BenutzerVerwaltungAdmin(String fileName, boolean init)	{
 		userMap = new HashMap<String, Benutzer>();
 		this.fileName = fileName;
+		if(init)	{
+			dbInitialisieren(fileName);
+		} else	{
+			readDB();
+		}
 	}
 	
 	
@@ -85,6 +91,9 @@ public class BenutzerVerwaltungAdmin implements BenutzerVerwaltung{
 		this.fileName = fileName;
 		userMap.clear();
 		saveDB();
+	}
+	public String toString()	{
+		return userMap.toString();
 	}
 
 	

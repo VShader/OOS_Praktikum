@@ -20,42 +20,32 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
  */
 
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import javax.swing.*;
+package Controller;
 
-/**
- * @author Tobias Weitz
- *
- */
-public class AnwendungsFrame extends JFrame{
-	
-	/**
-	 * 
-	 */
-	public AnwendungsFrame()	{
-		setTitle("AnwendungsFrame");
-		setSize(new Dimension(400, 300));
-		jLabel_go = new JLabel("Sie können jetzt loslegen!");
-		jLabel_go.setBounds(67,60,289,28);
-		jLabel_go.setFont(new java.awt.Font("Serif",1,20));
-		jButton_quit = new JButton("Abbrechen?");
-		jButton_quit.setBounds(87,140,189,128);
-		jButton_quit.addActionListener(new ActionListener()	{
-				public void actionPerformed(ActionEvent e)	{
-					System.out.println("Abbrechen!");
-					dispose();
-				}
-			});
-		
-		
-		setLayout(null);
-		add(jLabel_go);
-		add(jButton_quit);
-		setVisible(true);
+import Benutzer.*;
+
+public class ClientOrb implements BenutzerVerwaltung	{
+
+	ClientOrb(Client client)	{
+		this.client = client;
 	}
 	
-	private JLabel jLabel_go;
-	private JButton jButton_quit;
+	
+	
+	public void benutzerEintragen(Benutzer ben)
+			throws BenutzerSchonVorhandenException {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public boolean benutzerOK(Benutzer ben) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+	
+	
+	
+
+	
+	private Client client;
 }

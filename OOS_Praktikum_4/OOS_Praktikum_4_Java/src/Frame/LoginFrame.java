@@ -20,6 +20,16 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
  */
 
+package Frame;
+
+import java.awt.Dimension;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
+
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JFrame;
@@ -27,13 +37,8 @@ import javax.swing.JLabel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.net.InetAddress;
-import java.net.UnknownHostException;
-
-import Benutzer.*;
+import Benutzer.Benutzer;
+import Controller.Client;
 
 /**
  * @author Tobias Weitz
@@ -92,15 +97,25 @@ public class LoginFrame extends JFrame	{
 		jButton_Run.addActionListener(new ActionListener()	{
 				public void actionPerformed(ActionEvent e)	{
 					if(lokal==false)	{
+						if(neuAnmeldung == true)	{
+							controller.neuAnmeldungRemote();
+						} else	{
+							controller.benutzerLoginRemote(new Benutzer(jTextField_UserID.getText(), 
+									jPasswordField_Password.getPassword()));
+						}
 						try	{
 							address = InetAddress.getByName(jTextField_IP.getText());
 						} catch(UnknownHostException exception)	{
 							exception.printStackTrace();
 						}
+					} else 	{
+						if(neuAnmeldung == true)	{
+							controller.neuAnmeldungLokal();
+						} else	{
+							controller.benutzerLoginLokal(new Benutzer(jTextField_UserID.getText(), 
+									jPasswordField_Password.getPassword()));
+						}
 					}
-					Benutzer user = new Benutzer(jTextField_UserID.getText(), 
-							jPasswordField_Password.getPassword());
-					System.out.println(user.toString());
 					dispose();
 				}
 			});
@@ -119,6 +134,22 @@ public class LoginFrame extends JFrame	{
 		add(jButton_Run);
 		setVisible(true);
 	}
+	public LoginFrame(Client controller)	{
+		this();
+		this.controller = controller;
+	}
+	public LoginFrame(Client controller, String errorMessage)	{
+		this(controller);
+		textFont = jTextField_UserID.getFont();
+		jTextField_UserID.setFont(new java.awt.Font("Serif",1,15));
+		jTextField_UserID.setText(errorMessage);
+		
+		jTextField_UserID.addKeyListener(new KeyAdapter() {
+			public void keyTyped(KeyEvent arg0) {
+				jTextField_UserID.setFont(textFont);
+			}
+		});
+	}
 
 	
 	private JTextField jTextField_UserID;
@@ -130,5 +161,7 @@ public class LoginFrame extends JFrame	{
 	private boolean lokal = true;
 	private boolean neuAnmeldung = false;
 	private InetAddress address;
+	private Client controller;
+	private java.awt.Font textFont;
 
 }

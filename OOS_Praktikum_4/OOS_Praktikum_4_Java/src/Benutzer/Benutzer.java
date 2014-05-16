@@ -1,7 +1,3 @@
-import Frame.AnmeldungsFrame;
-import Frame.AnwendungsFrame;
-import Frame.LoginFrame;
-
 /*
  * Copyright (c) <2014> <Tobias Weitz>
 
@@ -24,13 +20,58 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
  */
 
-public class OOS_Praktikum_3_Java {
+package Benutzer;
 
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		AnwendungsFrame frame = new AnwendungsFrame();
-		LoginFrame log = new LoginFrame();
-		AnmeldungsFrame reg = new AnmeldungsFrame();
+import java.io.Serializable;
+
+/*
+ * @author Tobias Weitz
+ * @version 1.0
+ * @serial user-ID, password
+ */
+public class Benutzer implements Serializable{
+
+	public Benutzer()	{
+		userID="NEW User";
+		passWord = new char[1];
 	}
-
+	/*
+	 * @param String user-ID
+	 * @param char[] password
+	 * @ 
+	 */
+	public Benutzer(String userID, char[] passWord)	{
+		this.userID=userID;
+		this.passWord = passWord.clone();
+	}
+	/*
+	 * @param Benutzer user
+	 */
+	public Benutzer(Benutzer ben)	{
+		userID=ben.userID;
+		passWord=ben.passWord;
+	}
+	
+	
+	
+	/*
+	 * @param Benutzer user 
+	 * @return boolean true if equals, else false
+	 */
+	public boolean equals(Benutzer ben)	{
+		return userID.equals(ben.userID) &&
+				String.copyValueOf(passWord).equals(String.copyValueOf(ben.passWord));
+	}
+	/*
+	 * @return String user-ID
+	 * @see java.lang.Object#toString()
+	 */
+	public String toString()	{
+		return userID;
+	}
+	
+	
+	
+	private String userID;
+	private char[] passWord;
 }

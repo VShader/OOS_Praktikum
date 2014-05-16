@@ -1,3 +1,4 @@
+package Frame;
 /*
  * Copyright (c) <2014> <Tobias Weitz>
 

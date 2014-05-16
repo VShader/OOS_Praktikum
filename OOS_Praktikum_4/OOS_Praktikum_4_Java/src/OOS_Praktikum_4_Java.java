@@ -1,7 +1,3 @@
-import Frame.AnmeldungsFrame;
-import Frame.AnwendungsFrame;
-import Frame.LoginFrame;
-
 /*
  * Copyright (c) <2014> <Tobias Weitz>
 
@@ -24,13 +20,29 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
  */
 
-public class OOS_Praktikum_3_Java {
+import Controller.Client;
+import Controller.Server;
 
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		AnwendungsFrame frame = new AnwendungsFrame();
-		LoginFrame log = new LoginFrame();
-		AnmeldungsFrame reg = new AnmeldungsFrame();
+
+public class OOS_Praktikum_4_Java {
+ public static void main(String[] args)	{
+	 ClientThread client1 = new ClientThread();
+	 client1.start();
+	 
+	 ServerThread server = new ServerThread();
+	 server.start();
+ }
+}
+
+class ClientThread extends Thread	{
+	public void run()	{
+		Client client = new Client(false);
 	}
+}
 
+class ServerThread extends Thread	{
+	public void run()	{
+		Server server = new Server(false);
+		server.run();
+	}
 }
