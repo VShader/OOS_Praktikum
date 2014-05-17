@@ -25,6 +25,8 @@ package Controller;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 
 import Benutzer.*;
 import Frame.*;
@@ -83,6 +85,12 @@ public class Client {
 	public void benutzerLoginRemote(Benutzer user)	{
 		db = orb;
 		benutzerLogin(user);
+	}
+	public void setAddress(InetAddress address)	{
+		orb.setAddress(address);
+	}
+	public void unknwonHost(UnknownHostException exception)	{
+		login = new LoginFrame(this, "Host doesn't exist!");
 	}
 	
 	

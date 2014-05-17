@@ -22,6 +22,14 @@ THE SOFTWARE.
 
 package Controller;
 
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.net.InetAddress;
+import java.net.Socket;
+
+import org.omg.CosNaming.NamingContextExtPackage.AddressHelper;
+
 import Benutzer.*;
 
 public class ClientOrb implements BenutzerVerwaltung	{
@@ -30,16 +38,57 @@ public class ClientOrb implements BenutzerVerwaltung	{
 		this.client = client;
 	}
 	
+	public void setAddress(InetAddress address)	{
+		this.address = address;
+	}
 	
 	
 	public void benutzerEintragen(Benutzer ben)
 			throws BenutzerSchonVorhandenException {
-		// TODO Auto-generated method stub
-		
+		try {
+			server = new Socket(address, 1337);
+			out = new ObjectOutputStream(server.getOutputStream());
+			in = new ObjectInputStream(server.getInputStream());
+			
+			out.writeInt(1);
+			out.writeObject(ben);
+			switch(in.readInt())	{
+				case 0:
+					server.close();
+					return;
+
+				case 1:
+					BenutzerSchonVorhandenException e = (BenutzerSchonVorhandenException)in.readObject();
+					server.close();
+					throw e;
+			}
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	public boolean benutzerOK(Benutzer ben) {
 		// TODO Auto-generated method stub
+		try {
+			server = new Socket(address, 1337);
+			out = new ObjectOutputStream(server.getOutputStream());
+			in = new ObjectInputStream(server.getInputStream());
+			
+			out.writeInt(0);
+			out.writeObject(ben);
+			out.flush();
+			boolean result =  in.readBoolean();
+			return result;
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		System.out.println(address.toString());
 		return false;
 	}
 	
@@ -48,4 +97,9 @@ public class ClientOrb implements BenutzerVerwaltung	{
 
 	
 	private Client client;
+	private InetAddress address;
+	private Socket server;
+	private ObjectOutputStream out;
+	private ObjectInputStream in;
+	private enum sendType {benutzerEintragen, benutzerOK};
 }

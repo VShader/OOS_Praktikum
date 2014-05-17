@@ -97,16 +97,19 @@ public class LoginFrame extends JFrame	{
 		jButton_Run.addActionListener(new ActionListener()	{
 				public void actionPerformed(ActionEvent e)	{
 					if(lokal==false)	{
+						try	{
+							address = InetAddress.getByName(jTextField_IP.getText());
+							controller.setAddress(address);
+						} catch(UnknownHostException exception)	{
+							controller.unknwonHost(exception);
+							dispose();
+							return;
+						}
 						if(neuAnmeldung == true)	{
 							controller.neuAnmeldungRemote();
 						} else	{
 							controller.benutzerLoginRemote(new Benutzer(jTextField_UserID.getText(), 
 									jPasswordField_Password.getPassword()));
-						}
-						try	{
-							address = InetAddress.getByName(jTextField_IP.getText());
-						} catch(UnknownHostException exception)	{
-							exception.printStackTrace();
 						}
 					} else 	{
 						if(neuAnmeldung == true)	{

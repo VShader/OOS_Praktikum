@@ -23,6 +23,8 @@ THE SOFTWARE.
 package Controller;
 
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 
@@ -41,13 +43,8 @@ public class ServerOrb	{
 		}
 	}
 	
-	public synchronized void neuerBenutzer(Benutzer newUser)	{
-		try {
+	public synchronized void neuerBenutzer(Benutzer newUser) throws BenutzerSchonVorhandenException	{
 			server.neuerBenutzer(newUser);
-		} catch (BenutzerSchonVorhandenException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 	}
 	public boolean benutzerLogin(Benutzer user)	{
 		return server.benutzerLogin(user);
@@ -80,9 +77,38 @@ class RequestHandler implements Runnable	{
 		this.orb = orb;
 	}
 	public void run()	{
-		
+		try {
+			in = new ObjectInputStream(client.getInputStream());
+			out = new ObjectOutputStream(client.getOutputStream());
+			
+			switch(in.readInt())	{
+				case 0:
+					out.writeBoolean(orb.benutzerLogin((Benutzer)in.readObject()));
+					out.flush();
+				break;
+				
+				case 1:
+					try {
+						orb.neuerBenutzer((Benutzer)in.readObject());
+						out.writeInt(0);
+					} catch (BenutzerSchonVorhandenException e) {
+						out.writeInt(1);
+						out.writeObject(e);
+					}
+					out.flush();
+			}
+			client.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	private Socket client;
 	private ServerOrb orb;
+	private ObjectOutputStream out;
+	private ObjectInputStream in;
 }
