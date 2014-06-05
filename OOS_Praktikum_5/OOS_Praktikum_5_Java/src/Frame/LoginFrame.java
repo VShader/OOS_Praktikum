@@ -101,6 +101,7 @@ public class LoginFrame extends JApplet	{
 						controller.benutzerLoginRemote(new Benutzer(jTextField_UserID.getText(), 
 								jPasswordField_Password.getPassword()));
 					}
+					setVisible(false);
 				}
 			});
 		

@@ -61,7 +61,7 @@ public class Client extends JApplet{
 			anmeldung = new AnmeldungsFrame(this, "User always exist!");
 			return;
 		}
-		login.start();
+		login.setVisible(true);
 		//login = new LoginFrame(this);
 	}
 
@@ -80,10 +80,9 @@ public class Client extends JApplet{
 		orb.setAddress(address);
 	}
 	public void unknwonHost(UnknownHostException exception)	{
-		//login = new LoginFrame(this, "Host doesn't exist!");
-		login.stop();
+		//login = new LoginFrame(this, "Host doesn't exist!")
 		login.error("Host doesn't exist!");
-		login.start();
+		login.setVisible(true);
 	}
 	
 	
